@@ -1,0 +1,70 @@
+body {
+  font-family: 'Shippori Mincho B1', serif;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  background-color: black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 75vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+section:nth-child(odd) {
+  color: black;
+  background-color: white;
+}
+
+section.hero {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-top: 140px;
+  position: relative;
+  overflow: visible;
+}
+
+section.hero p {
+  font-size: 35px;
+  text-align: right;
+  display: block;
+  width: 60vw;
+  margin-right: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+section.hero #circle {
+  background-color: white;
+  border-radius: 500px;
+  bottom: -125px;
+  left: 30px;
+  height: 500px;
+  position: absolute;
+  width: 500px;
+}
+
+section.subtitle {
+  height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+section.subtitle h2 {
+  font-size: 200px;
+  text-align: center;
+  overflow: hidden;
+  line-height: 280px;
+}
+/*# sourceMappingURL=styles.css.map */
