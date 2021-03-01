@@ -1,5 +1,5 @@
 body {
-  font-family: 'Shippori Mincho B1', serif;
+  font-family: 'Shippori Mincho', serif;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -23,12 +23,14 @@ section {
 }
 
 section.hero {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: black;
   background-color: white;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  padding-top: 140px;
   overflow: visible;
   height: 90vh;
   z-index: 2;
@@ -54,19 +56,39 @@ section.subtitle {
 }
 
 section.subtitle h2 {
-  font-size: 260px;
+  font-size: 18.5vw;
   text-align: center;
-  overflow: visible;
-  line-height: 340px;
+  overflow: hidden;
+  margin: 0;
+  margin-top: -3%;
 }
 
 section.subtitle #circle {
   background-color: white;
   border-radius: 500px;
-  top: 0;
-  left: 30px;
+  top: 30%;
   height: 500px;
   position: absolute;
   width: 500px;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+}
+
+section.subtitle .grid {
+  width: 90vw;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10vw;
+  margin: 0 auto;
+  position: absolute;
+  left: 5vw;
+  top: 63%;
+}
+
+section.subtitle .grid .column {
+  height: 70vh;
+  background: rgba(255, 0, 0, 0.5);
 }
 /*# sourceMappingURL=styles.css.map */
