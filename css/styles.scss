@@ -3,7 +3,8 @@ $circle-size: 500px;
 
 
 body {
-  font-family: 'Shippori Mincho B1', serif;
+  // font-family: 'Shippori Mincho B1', serif;
+  font-family: 'Shippori Mincho', serif;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -21,10 +22,10 @@ section {
   position: absolute;
 
   &.hero {
+    align-items: center;
     color: black;
     background-color: white;
     justify-content: flex-end;
-    padding-top: 140px;
     // position: relative;
     overflow: visible;
     height: 90vh;
@@ -42,30 +43,45 @@ section {
     }
 
   }
-  
+
   &.subtitle {
     height: 100vh;
     flex-direction: column;
     z-index: 1;
-    
+
     h2 {
-      font-size: 260px;
+      font-size: 18.5vw;
       text-align: center;
-      overflow: visible;
-      line-height: 340px;
+      overflow: hidden;
+      margin: 0;
+      margin-top: -3%;
     }
-    
+
     #circle {
       background-color: white;
       border-radius: $circle-size;
-      top: 0;
-      left: 30px;
+      top: 30%;
       height: $circle-size;
       position: absolute;
       width: $circle-size;
-    
+      transform-origin: center;
+
+    }
+
+    .grid {
+      width: 90vw;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 10vw;
+      margin: 0 auto;
+      position: absolute;
+      left: 5vw;
+      top: 63%;
+
+      .column {
+        height: 70vh;
+        background: rgba(255,0,0,0.5);
+      }
     }
   }
 }
-
-
