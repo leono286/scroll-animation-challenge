@@ -3,7 +3,6 @@ $circle-size: 500px;
 
 
 body {
-  // font-family: 'Shippori Mincho B1', serif;
   font-family: 'Shippori Mincho', serif;
   margin: 0;
   padding: 0;
@@ -26,9 +25,8 @@ section {
     color: black;
     background-color: white;
     justify-content: flex-end;
-    // position: relative;
     overflow: visible;
-    height: 90vh;
+    height: 93vh;
     z-index: 2;
 
 
@@ -72,16 +70,23 @@ section {
       width: 90vw;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-column-gap: 10vw;
+      grid-column-gap: 13vw;
       margin: 0 auto;
       position: absolute;
       left: 5vw;
       top: 63%;
 
       .column {
-        height: 70vh;
-        background: rgba(255,0,0,0.5);
+        height: 90vh;
+        background: rgba(255, 0, 0, 0.5);
       }
     }
+  }
+
+  .mario {
+    width: 200px;
+    left: calc(50vw - 100px);
+    position: absolute;
+    opacity: 0;
   }
 }

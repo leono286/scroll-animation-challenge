@@ -32,7 +32,7 @@ section.hero {
       -ms-flex-pack: end;
           justify-content: flex-end;
   overflow: visible;
-  height: 90vh;
+  height: 93vh;
   z-index: 2;
 }
 
@@ -80,7 +80,7 @@ section.subtitle .grid {
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10vw;
+  grid-column-gap: 13vw;
   margin: 0 auto;
   position: absolute;
   left: 5vw;
@@ -88,7 +88,14 @@ section.subtitle .grid {
 }
 
 section.subtitle .grid .column {
-  height: 70vh;
+  height: 90vh;
   background: rgba(255, 0, 0, 0.5);
+}
+
+section .mario {
+  width: 200px;
+  left: calc(50vw - 100px);
+  position: absolute;
+  opacity: 0;
 }
 /*# sourceMappingURL=styles.css.map */
