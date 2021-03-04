@@ -76,7 +76,8 @@ const init = () => {
   timeline.fromTo('#circle', {y: '30vh'}, { duration: 8, y: circleTargetY }, "-=8");
   timeline.fromTo('#circle', { scale: scaleToApply }, { duration: 10.3, scale: 0}, "-=8");
   timeline.to('#circle', { duration: 0.3, opacity: 0 }, "-=0.2");
-  timeline.from('.subtitle h2 .char', { opacity: 0, y: '120%', stagger: 0.8, duration: 5 }, '-=9.5');
+  timeline.from('.subtitle h2 .char', { y: '120%', stagger: 0.8, duration: 5 }, '-=9.5');
+  timeline.from('.subtitle h2 .char', { opacity: 0, stagger: 0.8, duration: 4 }, '-=10');
   timeline.from('.subtitle .column', { y: '50vh', stagger: 2, duration: 6, ease: 'linear' });
 
   chars.forEach((char, index) => {
