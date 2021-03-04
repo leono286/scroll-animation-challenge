@@ -37,13 +37,25 @@ section.hero {
 }
 
 section.hero p {
-  font-size: 35px;
+  font-size: 18px;
   text-align: right;
   display: block;
   width: 60vw;
   margin-right: 40px;
   position: relative;
   z-index: 1;
+}
+
+@media screen and (min-width: 600px) {
+  section.hero p {
+    font-size: 25px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  section.hero p {
+    font-size: 35px;
+  }
 }
 
 section.subtitle {
@@ -66,7 +78,7 @@ section.subtitle h2 {
 section.subtitle #circle {
   background-color: white;
   border-radius: 500px;
-  top: 30%;
+  top: 20vh;
   height: 500px;
   position: absolute;
   width: 500px;
@@ -84,7 +96,6 @@ section.subtitle .grid {
   margin: 0 auto;
   position: absolute;
   left: 5vw;
-  top: 63%;
 }
 
 section.subtitle .grid .column {
@@ -92,7 +103,7 @@ section.subtitle .grid .column {
   background: rgba(255, 0, 0, 0.5);
 }
 
-section .mario {
+section .goomba {
   width: 200px;
   left: calc(50vw - 100px);
   position: absolute;

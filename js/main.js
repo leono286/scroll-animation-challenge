@@ -1,37 +1,42 @@
 let chars;
-let timeLine;
+let timeline;
 let subtitleOverflowVisible = false;
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
 const init = () => {
   
   chars = chars[0].chars;
   
-  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-  
+  // i char processing to find x coordinate for the dot of the i letter.
   const firstI = chars.filter(char => char.dataset['char'] === 'i')[0];
   const firstIRect = firstI.getBoundingClientRect();
   const firstICenterX = firstIRect.x + firstIRect.width / 2;
-  const customFixFactor = 0.0113 * firstICenterX;
+  const customFixDistance = 0.0113 * firstICenterX;
 
-
+  // Position the center of the circle in the same x coordinate value that the dot of the i letter has. 
   const circle = document.getElementById('circle');
   const circleRect = circle.getBoundingClientRect();
-  let circleFinalX = firstICenterX - circleRect.width / 2 - customFixFactor;
+  let circleFinalX = firstICenterX - circleRect.width / 2 - customFixDistance;
+  circle.style.left = `${circleFinalX}px`;
 
-
+  // Find the scale to apply to the circle to make it grow up to 90% of viewport width, no matter the screen size.
   const scaleToApply = vw * 0.9 / 500;
 
+  
+  // get the required translation of the circle over the y axis to align its center with the center of the dot over the i.
+  // 33% is ~ the value meassured from the top of the span's box to the center of the dot. % to ensure responsiveness.
   const circleTargetY = firstIRect.y + (0.33 * firstIRect.height) - circleRect.y - circleRect.width / 2;
 
-
-  
+  // process the text to find the bottom line of the text and make it set as top position for the grid that contains the columns
   const subtitle = document.querySelector('.subtitle h2');
   const subtitleRect = subtitle.getBoundingClientRect();
   const subtitleVisualBottom = subtitleRect.y + 0.82 * subtitleRect.height;
-
   const grid = document.querySelector('.subtitle .grid');
   grid.style.top = `${subtitleVisualBottom}px`
 
+  
+  // TODO: improve this logic, I think I don't need to split them in groups anymore, also to avoid nested for.
   const charsGroups = [];
   for (let index = 0; index < chars.length; index += 3) {
     charsGroups.push(chars.slice(index, index + 3));
@@ -51,45 +56,69 @@ const init = () => {
     })
   }); 
 
+  //Set up the timeline
+  const scrollDuration = vh * 4;
 
-
-  circle.style.left = `${circleFinalX}px`;
-
-
-  timeLine = gsap.timeline({
+  timeline = gsap.timeline({
     scrollTrigger: {
       trigger: ".subtitle",
       start: "top top", // when the top of the trigger hits the top of the viewport
       pin: '.subtitle',
-      end: '+=5000',
-      scrub: 1.5, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+      end: `+=${scrollDuration}`,
+      scrub: 1.5, // smooth scrubbing, takes 1.5 second to "catch up" to the scrollbar
       // markers: true,
     },
     onUpdate: timelineUpdate,
   });
 
   
-
-  timeLine.to('.hero', { y: '-100%', duration: 8});
-  timeLine.to('#circle', { duration: 8, y: circleTargetY }, "-=8");
-  timeLine.fromTo('#circle', { scale: scaleToApply }, { duration: 10.3, scale: 0}, "-=8");
-  timeLine.to('#circle', { duration: 0.3, opacity: 0 }, "-=0.2");
-  timeLine.from('.subtitle h2 .char', { opacity: 0, y: '120%', stagger: 0.8, duration: 5 }, '-=9.5');
-  timeLine.from('.subtitle .column', { y: '50vh', stagger: 3, duration: 9, ease: 'linear' });
+  timeline.to('.hero', { y: '-100%', duration: 8});
+  timeline.fromTo('#circle', {y: '30vh'}, { duration: 8, y: circleTargetY }, "-=8");
+  timeline.fromTo('#circle', { scale: scaleToApply }, { duration: 10.3, scale: 0}, "-=8");
+  timeline.to('#circle', { duration: 0.3, opacity: 0 }, "-=0.2");
+  timeline.from('.subtitle h2 .char', { opacity: 0, y: '120%', stagger: 0.8, duration: 5 }, '-=9.5');
+  timeline.from('.subtitle .column', { y: '50vh', stagger: 2, duration: 6, ease: 'linear' });
 
   chars.forEach((char, index) => {
     const { angle, x } = JSON.parse(char.dataset.collisionData);
-    const stagger = 3;
     const animation = { y: '-80vh', rotationZ: angle, x: x, duration: 9 };
-    const factor = index % stagger === 0 ? 0 : 3;
-    const delay = 6 + factor;
+    let delay; 
 
-    timeLine.to(char, animation, `-=${delay}`)
+    switch (index) {
+      case 0:
+        delay = 4;
+        break;
+    
+      case 3:
+      case 6:
+        delay = 7;
+        break;
+      
+      default:
+        delay = 9;
+        break;
+    }
+
+    timeline.to(char, animation, `-=${delay}`)
   });
 
-  timeLine.to('.subtitle .column', { y: '-155vh', stagger: 3, duration: 21 }, '-=15');
-  timeLine.to('.mario', { opacity: 1, duration: 8 }, '-=13');
+  timeline.to('.subtitle .column', { y: `-${subtitleVisualBottom + vh}`, stagger: 2, duration: 23 }, '-=13');
+  timeline.to('.goomba', { opacity: 1, duration: 8 }, '-=14');
 }
+
+const timelineUpdate = () => {
+  const animationTreshold = 0.3;
+  if (timeline.progress() > animationTreshold && !subtitleOverflowVisible) {
+    toggleSubtitleOverflow(true);
+  } else if (timeline.progress() <= animationTreshold && subtitleOverflowVisible) {
+    toggleSubtitleOverflow(false);
+  }
+};
+
+const toggleSubtitleOverflow = (makeItVisible) => {
+  document.querySelector('.subtitle h2').style.overflow = makeItVisible ? 'visible' : 'hidden';
+  subtitleOverflowVisible = makeItVisible;
+};
 
 const warmUp = () => {
   chars = Splitting({
@@ -100,24 +129,6 @@ const warmUp = () => {
   setTimeout(() => {
     init();
   }, 350);
-}
-
-const timelineUpdate = () => {
-  const animationTreshold = 0.42;
-  if (timeLine.progress() > animationTreshold && !subtitleOverflowVisible) {
-    toggleSubtitleOverflow(true);
-  } else if (timeLine.progress() <= animationTreshold && subtitleOverflowVisible) {
-    toggleSubtitleOverflow(false);
-  }
-};
-
-const toggleSubtitleOverflow = (makeItVisible) => {
-  document.querySelector('.subtitle h2').style.overflow = makeItVisible ? 'visible' : 'hidden';
-  subtitleOverflowVisible = makeItVisible;
-};
-
-const getRandomAngle = () => {
-
 }
 
 warmUp(); 
