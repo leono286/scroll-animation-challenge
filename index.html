@@ -9,12 +9,25 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1&display=swap" rel="stylesheet"> -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet" </head>
 
-  <body>
+  <body class="loading">
+  <div class="loading-msg">
+  <!-- Loader taken from https://loading.io/css/ -->
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <!-- End of loader -->
+  </div>
+  <main>
     <section class="hero">
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis a voluptatibus rem expedita dolorum impedit
         delectus beatae, tempora eligendi quae officiis voluptatem, sapiente sint dolore veniam minima dignissimos
@@ -30,11 +43,13 @@
       </div>
       <img class="goomba" src="assets/img/goomba.png" alt="">
     </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js"></script>
+  <!-- <script src="js/GSDevTools.js"></script> -->
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
 
-    <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
   </body>
 
 </html>
